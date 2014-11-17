@@ -53,22 +53,22 @@ db.define_table(
     Field('descricao', 'text', label="Descrição", notnull=True),
     Field(
         'url_youtube',
-        requires=IS_URL(),
+        requires=IS_EMPTY_OR(IS_URL()),
         label="Youtube (https://youtube.com/seu-canal) "
     ),
     Field(
         'url_facebook',
-        requires=IS_URL(),
+        requires=IS_EMPTY_OR(IS_URL()),
         label="Facebook (https://facebook.com/seu-nome)",
     ),
     Field(
         'url_twitter',
-        requires=IS_URL(),
+        requires=IS_EMPTY_OR(IS_URL()),
         label="Twitter (https://twitter.com/seu-nome)",
     ),
     Field(
         'url_gplus',
-        requires=IS_URL(),
+        requires=IS_EMPTY_OR(IS_URL()),
         label="Google Plus (https://plus.google.com/u/0/+Seu-nome)"
     ),
 )
