@@ -33,3 +33,42 @@ mail.settings.login = 'username:password'
 auth.settings.registration_requires_verification = False
 auth.settings.registration_requires_approval = False
 auth.settings.reset_password_requires_verification = True
+
+db.define_table(
+    'evento',
+    Field('nome', length=120, notnull=True),
+    Field(
+        'data_hora_inicio',
+        'datetime',
+        label="Data/Horário Inicial",
+        notnull=True
+    ),
+    Field(
+        'data_hora_final',
+        'datetime',
+        label="Data/Horário Final",
+        notnull=True
+    ),
+    Field('localizacao', notnull=True, length=540, label="Localização"),
+    Field('descricao', 'text', label="Descrição", notnull=True),
+    Field(
+        'url_youtube',
+        requires=IS_URL(),
+        label="Youtube (https://youtube.com/seu-canal) "
+    ),
+    Field(
+        'url_facebook',
+        requires=IS_URL(),
+        label="Facebook (https://facebook.com/seu-nome)",
+    ),
+    Field(
+        'url_twitter',
+        requires=IS_URL(),
+        label="Twitter (https://twitter.com/seu-nome)",
+    ),
+    Field(
+        'url_gplus',
+        requires=IS_URL(),
+        label="Google Plus (https://plus.google.com/u/0/+Seu-nome)"
+    ),
+)
