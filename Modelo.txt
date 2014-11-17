@@ -1,19 +1,26 @@
-Trabalho de programação web
-===========================
+﻿MODELAGEM TRABALHO WEB (Site cadastro de eventos)
 
-###Descrição do projeto: 
-Aplicativo web para organização de eventos. 
+1 -Tabela de usuário:
 
-###Tecnologia utilizada: 
-web2py
+1.1- Dado pelo web2py (Obrigatório)
+	Nome, Sobrenome, Email, Senha
+	
+1.2- Precisa implementar (Não obrigatório)
+	Instituição de ensino, Matrícula, Telefone
 
-###Funcionalidades:
-    - Cadastro e agrupamento de eventos
-    - Área de inscrição para conferencistas
-    - Administração do evento
-    - Submissão de palestras e minicursos
-    - Geração automática de agenda do conferencista
 
-Será desenvolvido uma interface web, responsiva para acesso do aplicativo em computadores de mesa, laptops e dispositivos móveis.
-Esta interface web fará comunicação com uma API também a ser desenvolvida.
-Esta API será feita utilizando também o web2py, com arquitetura REST e fornecendo serviços utilizando JSON.
+
+2 -Evento:
+	Nome evento, Data/Hora inicio e fim, Local, Descrição(plugin CK Editor), Contato do evento(youtube)
+	
+2.1- Organizadores
+	Nome, foto, contatos(não obrigatório - twitter, GH, FB, LinkedIn, G+)
+
+2.2- Palestrante(atividade)
+	Idem ao de cima, Bio
+	
+2.3- Atividade(palestrante)
+	Tipo de atividade, horário
+	
+2.4- Patrocinador
+	Foto, link
