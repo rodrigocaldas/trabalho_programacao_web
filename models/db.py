@@ -103,3 +103,66 @@ db.define_table(
         label="LinkedIn "
     ),
 )
+
+db.define_table(
+	'palestrante',
+	Field('nome', length=120, notnull=True),
+	Field('foto', 'upload', requires=IS_EMPTY_OR(IS_IMAGE()) ),
+	Field(
+        'url_facebook',
+        requires=IS_EMPTY_OR(IS_URL()),
+        label="Facebook (https://facebook.com/seu-nome)",
+    ),
+    Field(
+        'url_twitter',
+        requires=IS_EMPTY_OR(IS_URL()),
+        label="Twitter (https://twitter.com/seu-nome)",
+    ),
+    Field(
+        'url_gplus',
+        requires=IS_EMPTY_OR(IS_URL()),
+        label="Google Plus (https://plus.google.com/u/0/+Seu-nome)"
+    ),
+	Field(
+        'url_Github',
+        requires=IS_EMPTY_OR(IS_URL()),
+        label="Github (https://github.com/Seu-Git)"
+    ),
+	Field(
+        'url_LinkedIn',
+        requires=IS_EMPTY_OR(IS_URL()),
+        label="LinkedIn "
+    ),
+	Field('bio', 'text'),
+)
+
+db.define_table(
+	'atividade',
+	Field('tipo_atividade', 
+	length=12,
+	requires=IS_IN_SET(['minicurso','workshop'],
+	zero='palestra')
+	),
+	Field(
+        'data_hora_inicio',
+        'datetime',
+        label="Data/Horário Inicial",
+        notnull=True
+    ),
+    Field(
+        'data_hora_final',
+        'datetime',
+        label="Data/Horário Final",
+        notnull=True
+    ),
+)
+
+db.define_table(
+	'patrocinador',
+	Field(
+        'url_empresa',
+        requires=IS_EMPTY_OR(IS_URL()),
+        label="Link da empresa"
+    ),
+	Field('foto', 'upload', requires=IS_IMAGE()),
+)
