@@ -92,23 +92,23 @@ db.define_table(
         requires=IS_EMPTY_OR(IS_URL()),
         label="Google Plus (https://plus.google.com/u/0/+Seu-nome)"
     ),
-    Field(
-        'url_github',
+	Field(
+        'url_Github',
         requires=IS_EMPTY_OR(IS_URL()),
         label="Github (https://github.com/Seu-Git)"
     ),
-    Field(
-        'url_linkedin',
+	Field(
+        'url_LinkedIn',
         requires=IS_EMPTY_OR(IS_URL()),
         label="LinkedIn "
     ),
 )
 
 db.define_table(
-    'palestrante',
-    Field('nome', length=120, notnull=True),
-    Field('foto', 'upload', requires=IS_EMPTY_OR(IS_IMAGE())),
-    Field(
+	'palestrante',
+	Field('nome', length=120, notnull=True),
+	Field('foto', 'upload', requires=IS_EMPTY_OR(IS_IMAGE()) ),
+	Field(
         'url_facebook',
         requires=IS_EMPTY_OR(IS_URL()),
         label="Facebook (https://facebook.com/seu-nome)",
@@ -123,28 +123,27 @@ db.define_table(
         requires=IS_EMPTY_OR(IS_URL()),
         label="Google Plus (https://plus.google.com/u/0/+Seu-nome)"
     ),
-    Field(
-        'url_github',
+	Field(
+        'url_Github',
         requires=IS_EMPTY_OR(IS_URL()),
         label="Github (https://github.com/Seu-Git)"
     ),
-    Field(
-        'url_linkedin',
+	Field(
+        'url_LinkedIn',
         requires=IS_EMPTY_OR(IS_URL()),
         label="LinkedIn "
     ),
-    Field('bio', 'text'),
+	Field('bio', 'text'),
 )
 
 db.define_table(
-    'atividade',
-    Field(
-        'tipo_atividade',
-        length=12,
-        requires=IS_IN_SET(['minicurso', 'workshop'],
-                           zero='palestra')
-    ),
-    Field(
+	'atividade',
+	Field('tipo_atividade',
+	length=12,
+	requires=IS_IN_SET(['palestra','minicurso','workshop'],
+	zero='Escolha um tipo de atividade')
+	),
+	Field(
         'data_hora_inicio',
         'datetime',
         label="Data/Horário Inicial",
@@ -166,12 +165,12 @@ db.atividade.evento_relacionado.requires = IS_IN_DB(db, 'evento.id', '%(nome)s')
 db.define_table(
     'patrocinador',
     Field('nome', length=120, notnull=True),
-    Field(
+	Field(
         'url_empresa',
-        requires=IS_EMPTY_OR(IS_URL()),
+        requires=IS_EMPTY_OR(IS_URL() ),
         label="Link da empresa"
     ),
-    Field('foto', 'upload', requires=IS_IMAGE()),
+	Field('foto', 'upload', requires=IS_IMAGE()),
 )
 
 db.define_table(

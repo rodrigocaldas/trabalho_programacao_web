@@ -171,7 +171,6 @@
 'User ID': 'ID do Usuário',
 'User Voice': 'Opinião dos usuários',
 'Value not allowed': 'Value not allowed',
-'Value not in database': 'Value not in database',
 'Videos': 'Vídeos',
 'View': 'Visualização',
 'Web2py': 'Web2py',
