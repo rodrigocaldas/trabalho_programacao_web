@@ -1,7 +1,11 @@
-1- Todo evento deve ter no mínimo uma atividade
+1- Sem estar logado somente ver a lista de eventos
 
-2- Organizador só no seu evento
+2- Todo evento deve ter no mínimo uma atividade
 
-3- Mesmo para patrocínio
+3- Organizador só no seu evento
 
-4- Mesmo para evento
+4- Mesmo para patrocínio
+
+5- Mesmo para atividade
+
+6- Atividade -> Evento (atividade deve acontecer durante evento)
