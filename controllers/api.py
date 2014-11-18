@@ -26,7 +26,7 @@ def evento():
 @auth.requires_login()
 def atividades():
     _id = request.args(0) or redirect(URL('erro_404'))
-    atividades = db((db.evento.id == _id) and (db.atividade.evento_relacionado == _id) and (db.palestrante.id == db.atividade.palestrante)).select()
+    atividades = db((db.atividade.evento_relacionado == _id) & (db.palestrante.id == db.atividade.palestrante)).select()
     if atividades:
         return atividades.as_json()
     else:
