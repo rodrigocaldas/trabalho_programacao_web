@@ -38,15 +38,15 @@ db.define_table(
     'evento',
     Field('nome', length=120, notnull=True),
     Field(
-        'data_hora_inicio',
-        'datetime',
-        label="Data/Horário Inicial",
+        'data_inicio',
+        'date',
+        label="Data Inicial",
         notnull=True
     ),
     Field(
-        'data_hora_final',
-        'datetime',
-        label="Data/Horário Final",
+        'data_final',
+        'date',
+        label="Data Final",
         notnull=True
     ),
     Field('localizacao', notnull=True, length=540, label="Localização"),
@@ -172,7 +172,7 @@ db.define_table(
         label="Link da empresa"
     ),
 	Field('foto', 'upload', requires=IS_IMAGE()),
-	Field('plano', label='Tipo de patrocínio', 
+	Field('plano', label='Tipo de patrocínio',
 	requires=IS_IN_SET(['Bronze','Prata','Ouro','Platina'],
 	zero='Escolha o tipo de patrocínio')
 	),
