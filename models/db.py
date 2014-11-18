@@ -155,7 +155,10 @@ db.define_table(
         label="Data/Horário Final",
         notnull=True
     ),
+    Field('palestrante')
 )
+
+db.atividade.palestrante.requires = IS_IN_DB(db, 'palestrante.id', '%(nome)s')
 
 db.define_table(
 	'patrocinador',
