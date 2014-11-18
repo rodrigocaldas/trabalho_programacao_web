@@ -71,6 +71,7 @@ db.define_table(
         requires=IS_EMPTY_OR(IS_URL()),
         label="Google Plus (https://plus.google.com/u/0/+Seu-nome)"
     ),
+	Field('logotipo', 'upload', requires=IS_EMPTY_OR(IS_IMAGE())),
 )
 
 db.define_table(
@@ -172,7 +173,7 @@ db.define_table(
     ),
 	Field('foto', 'upload', requires=IS_IMAGE()),
 	Field('plano', label='Tipo de patrocínio', 
-	requires=IS_IN_SET(['Prata','Ouro','Platina'],
+	requires=IS_IN_SET(['Bronze','Prata','Ouro','Platina'],
 	zero='Escolha o tipo de patrocínio')
 	),
 )
