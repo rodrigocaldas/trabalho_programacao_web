@@ -161,7 +161,7 @@ db.define_table(
 	'patrocinador',
 	Field(
         'url_empresa',
-        requires=IS_EMPTY_OR(IS_URL()),
+        requires=IS_EMPTY_OR(IS_URL() ),
         label="Link da empresa"
     ),
 	Field('foto', 'upload', requires=IS_IMAGE()),
