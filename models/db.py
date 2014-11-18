@@ -171,6 +171,10 @@ db.define_table(
         label="Link da empresa"
     ),
 	Field('foto', 'upload', requires=IS_IMAGE()),
+	Field('plano', label='Tipo de patrocínio', 
+	requires=IS_IN_SET(['Prata','Ouro','Platina'],
+	zero='Escolha o tipo de patrocínio')
+	),
 )
 
 db.define_table(
@@ -194,5 +198,3 @@ db.vinculo_patrocinador_evento.patrocinador.requires = IS_IN_DB(
     db, 'patrocinador.id', '%(nome)s')
 db.vinculo_patrocinador_evento.evento.requires = IS_IN_DB(
     db, 'evento.id', '%(nome)s')
-
-

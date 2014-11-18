@@ -1,0 +1,7 @@
+1- Todo evento deve ter no mínimo uma atividade
+
+2- Organizador só no seu evento
+
+3- Mesmo para patrocínio
+
+4- Mesmo para evento
