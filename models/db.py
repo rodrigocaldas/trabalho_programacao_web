@@ -139,6 +139,7 @@ db.define_table(
 
 db.define_table(
 	'atividade',
+	Field('titulo', length=120, notnull=True),
 	Field('tipo_atividade',
 	length=12,
 	requires=IS_IN_SET(['palestra','minicurso','workshop'],
@@ -181,7 +182,7 @@ db.define_table(
 db.define_table(
     'vinculo_organizador_evento',
     Field('organizador', 'reference auth_user'),
-    Field('evento', 'reference evento')
+    Field('evento', 'reference evento'),
 )
 
 db.vinculo_organizador_evento.organizador.requires = IS_IN_DB(
@@ -192,10 +193,21 @@ db.vinculo_organizador_evento.evento.requires = IS_IN_DB(
 db.define_table(
     'vinculo_patrocinador_evento',
     Field('patrocinador', 'reference patrocinador'),
-    Field('evento', 'reference evento')
+    Field('evento', 'reference evento'),
 )
 
 db.vinculo_patrocinador_evento.patrocinador.requires = IS_IN_DB(
     db, 'patrocinador.id', '%(nome)s')
 db.vinculo_patrocinador_evento.evento.requires = IS_IN_DB(
     db, 'evento.id', '%(nome)s')
+	
+db.define_table(
+	'vinculo_usuario_atividade',
+	Field('usuario', 'reference auth_user'),
+	Field('atividade','reference atividade'),
+)
+
+db.vinculo_usuario_atividade.usuario.requires = IS_IN_DB(
+	db, 'auth_user.id', '%(first_name)s')
+db.vinculo_usuario_atividade.atividade.requires = IS_IN_DB(
+	db, 'atividade.id', '%(titulo)s')
