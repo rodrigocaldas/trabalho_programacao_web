@@ -20,6 +20,18 @@ def evento():
     else:
         redirect(URL('erro_404'))
 
+@auth.requires_login()
+def patrocinadores():
+    evento = request.args(0) or redirect(URL('erro_404'))
+    if evento:
+        evento = request.args(0)
+        query = db.vinculo_patrocinador_evento.evento == evento
+        query &= db.patrocinador.id==db.vinculo_patrocinador_evento.patrocinador
+        patrocinadores = db(query).select(db.patrocinador.nome,db.patrocinador.plano)
+        return patrocinadores.as_json()
+    else:
+        redirect(URL('erro_404'))
+
 
 def erro_404():
     return {'mensagem': 'Elemento não encontrado'}
