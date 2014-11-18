@@ -75,7 +75,7 @@ db.define_table(
 
 db.define_table(
     'organizador',
-    Field('nome', length=120, notnull=True),
+    Field('usuario', 'reference auth_user'),
     Field('foto', 'upload', requires=IS_EMPTY_OR(IS_IMAGE())),
     Field(
         'url_facebook',
@@ -156,13 +156,16 @@ db.define_table(
         label="Data/Horário Final",
         notnull=True
     ),
-    Field('palestrante')
+    Field('palestrante'),
+    Field('evento_relacionado')
 )
 
 db.atividade.palestrante.requires = IS_IN_DB(db, 'palestrante.id', '%(nome)s')
+db.atividade.evento_relacionado.requires = IS_IN_DB(db, 'evento.id', '%(nome)s')
 
 db.define_table(
     'patrocinador',
+    Field('nome', length=120, notnull=True),
     Field(
         'url_empresa',
         requires=IS_EMPTY_OR(IS_URL()),
@@ -170,3 +173,27 @@ db.define_table(
     ),
     Field('foto', 'upload', requires=IS_IMAGE()),
 )
+
+db.define_table(
+    'vinculo_organizador_evento',
+    Field('organizador', 'reference auth_user'),
+    Field('evento', 'reference evento')
+)
+
+db.vinculo_organizador_evento.organizador.requires = IS_IN_DB(
+    db, 'auth_user.id', '%(first_name)s')
+db.vinculo_organizador_evento.evento.requires = IS_IN_DB(
+    db, 'evento.id', '%(nome)s')
+
+db.define_table(
+    'vinculo_patrocinador_evento',
+    Field('patrocinador', 'reference patrocinador'),
+    Field('evento', 'reference evento')
+)
+
+db.vinculo_patrocinador_evento.patrocinador.requires = IS_IN_DB(
+    db, 'patrocinador.id', '%(nome)s')
+db.vinculo_patrocinador_evento.evento.requires = IS_IN_DB(
+    db, 'evento.id', '%(nome)s')
+
+
