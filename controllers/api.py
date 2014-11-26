@@ -8,7 +8,7 @@ def eventos():
         eventos = db((db.evento.data_inicio <= data) and
                      (db.evento.data_final >= data)).select()
     else:
-        eventos = db(db.evento).select()
+        eventos = db(db.evento).select(orderby=db.evento.data_inicio)
     return eventos.as_json()
 
 
