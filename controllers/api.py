@@ -69,3 +69,21 @@ def atividades():
         return atividades.as_json()
     else:
         return HTTP(404)
+
+
+def evento_completo():
+	if not request.args(0):
+		return HTTP(404)
+	_id = request.args(0)
+	query = db.vinculo_patrocinador_evento.evento == _id
+	query &= db.patrocinador.id == db.vinculo_patrocinador_evento.patrocinador
+	query &= db.evento.id == _id
+	query = db.vinculo_organizador_evento.evento == _id
+	query &= db.organizador.id == db.vinculo_organizador_evento.organizador
+	query &= db.auth_user.id == db.vinculo_organizador_evento.organizador
+	query &=(db.atividade.evento_relacionado == _id) & (db.palestrante.id == db.atividade.palestrante)
+	evento = db(query).select()
+	if evento:
+		return evento.as_json()
+	else:
+		return HTTP(404)
