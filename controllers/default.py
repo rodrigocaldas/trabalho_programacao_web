@@ -8,7 +8,7 @@ def index():
     chamada_api = urlopen(URL(c='api', f='eventos', host='localhost:8000'))
     eventos = json.loads(chamada_api.read())
     chamada_api.close()
-    return dict(eventos=eventos)
+    return dict(eventos=eventos[:4])
 
 
 def user():

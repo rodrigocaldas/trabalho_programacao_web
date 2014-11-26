@@ -1,7 +1,31 @@
 {{extend 'layout.html'}}
-{{for evento in eventos[:4]:}}
-    <div class="evento">
-        <h1>{{=evento['nome']}}</h1>
-        <h6>{{=evento['descricao']}}</h6>
+
+
+<div class="hero-unit">
+    <h1>Hello, world!</h1>
+    <p>This is a template for a simple marketing or informational website. It includes a large callout called the hero unit and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
+    <p><a href="#" class="btn btn-primary btn-large">Learn more »</a></p>
+</div>
+
+  <!-- Example row of columns -->
+<div class="row">
+    {{for evento in eventos:}}
+    <div class="span4">
+      <h2>{{=evento['nome']}}</h2>
+      <p>{{=evento['descricao']}} </p>
+      <p><a class="btn" href="#">Detalhes »</a></p>
     </div>
-{{pass}}
+    {{pass}}
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
