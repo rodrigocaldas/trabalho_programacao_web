@@ -3,10 +3,8 @@
 # Banco de dados
 db = DAL('sqlite://storage.sqlite', pool_size=1, check_reserved=['all'])
 
-
-# by default give a view/generic.extension to all actions from localhost
-# none otherwise. a pattern can be 'controller/function.extension'
-response.generic_patterns = ['*'] if request.is_local else []
+# no generic views
+response.generic_patterns = []
 
 from gluon.tools import Auth
 # autenticação do usuário
@@ -200,7 +198,7 @@ db.vinculo_patrocinador_evento.patrocinador.requires = IS_IN_DB(
     db, 'patrocinador.id', '%(nome)s')
 db.vinculo_patrocinador_evento.evento.requires = IS_IN_DB(
     db, 'evento.id', '%(nome)s')
-	
+
 db.define_table(
 	'vinculo_usuario_atividade',
 	Field('usuario', 'reference auth_user'),
