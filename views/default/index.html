@@ -6,7 +6,7 @@
     <p>Se estava a procura de um site facil e agil para criar o seu evento, você clicou no link certo!
 	WebEventos está aqui para você que não quer complicação e deseja que seu evento seja divulgado.
 	Se ainda não tem uma conta, cadastre-se e se surpreenda com a facilidade de se criar um evento.</p>
-    <p><a href="#" class="btn btn-primary btn-large">Learn more »</a></p>
+    <p><a href="{{=URL(f='user',args=['register'])}}" class="btn btn-primary btn-large">Cadastre-se »</a></p>
 </div>
 
   <!-- Example row of columns -->
@@ -15,7 +15,7 @@
     <div class="span4">
       <h2>{{=evento['nome']}}</h2>
       <p>{{=evento['descricao']}} </p>
-      <p><a class="btn" href="#">Detalhes »</a></p>
+      <p><a class="btn" href="{{=URL('evento', args=[evento['id']])}}">Detalhes »</a></p>
     </div>
     {{pass}}
 </div>

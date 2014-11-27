@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from urllib2 import urlopen
+from urllib2 import urlopen, HTTPError
 import json
 
 
@@ -9,6 +9,52 @@ def index():
     eventos = json.loads(chamada_api.read())
     chamada_api.close()
     return dict(eventos=eventos[:3])
+
+
+def evento():
+
+    # verifica se url tem argumentos
+    if not request.args(0):
+        return HTTP(404)
+    _id = request.args(0)
+
+    try:
+        # captura o evento
+        chamada_api = urlopen(
+            URL(c='api', f='evento', args=[_id], host='localhost:8000'))
+        sobre_evento = json.loads(chamada_api.read())
+        chamada_api.close()
+
+        # captura patrocinadores de um evento
+        chamada_api = urlopen(
+            URL(c='api', f='patrocinadores', args=[_id], host='localhost:8000')
+        )
+        patrocinadores = json.loads(chamada_api.read())
+        chamada_api.close()
+
+        # captura organizadores de um evento
+        chamada_api = urlopen(
+            URL(c='api', f='organizadores', args=[_id], host='localhost:8000')
+        )
+        organizadores = json.loads(chamada_api.read())
+        chamada_api.close()
+
+        # captura atividades de um evento
+        chamada_api = urlopen(
+            URL(c='api', f='atividades', args=[_id], host='localhost:8000')
+        )
+        atividades = json.loads(chamada_api.read())
+        chamada_api.close()
+
+    except HTTPError as e:
+        raise HTTP(404)
+
+    return dict(
+        patrocinadores=patrocinadores,
+        sobre_evento=sobre_evento,
+        organizadores=organizadores,
+        atividades=atividades
+        )
 
 
 def user():

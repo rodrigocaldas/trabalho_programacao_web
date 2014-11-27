@@ -97,7 +97,7 @@ db.define_table(
         label="Github (https://github.com/Seu-Git)"
     ),
     Field(
-        'url_linkedIn',
+        'url_linkedin',
         requires=IS_EMPTY_OR(IS_URL()),
         label="LinkedIn "
     ),
@@ -128,7 +128,7 @@ db.define_table(
         label="Github (https://github.com/Seu-Git)"
     ),
     Field(
-        'url_linkedIn',
+        'url_linkedin',
         requires=IS_EMPTY_OR(IS_URL()),
         label="LinkedIn "
     ),
@@ -156,12 +156,16 @@ db.define_table(
         notnull=True
     ),
     Field('palestrante'),
-    Field('evento_relacionado')
+    Field('evento_relacionado'),
+    Field('descricao', 'text',label="Descrição", default="")
 )
 
 db.atividade.palestrante.requires = IS_IN_DB(db, 'palestrante.id', '%(nome)s')
 db.atividade.evento_relacionado.requires = IS_IN_DB(
-    db, 'evento.id', '%(nome)s')
+    db,
+    'evento.id',
+    '%(nome)s'
+)
 
 db.define_table(
     'patrocinador',

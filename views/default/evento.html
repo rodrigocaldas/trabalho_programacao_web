@@ -1,0 +1,190 @@
+{{extend 'layout.html'}}
+
+{{block head}}
+    <link rel="stylesheet" href="{{=URL('static','css/evento.css')}}">
+{{end}}
+
+
+<div class="evento row">
+    <h1>Evento</h1>
+    {{if sobre_evento['logotipo']:}}
+        <img class="img-polaroid" src="{{=URL('download',args=[sobre_evento['logotipo']])}}" alt="foto do evento">
+    {{pass}}
+    <p>Nome: {{=sobre_evento['nome']}}</p>
+    <p>Localização: {{=sobre_evento['localizacao']}}</p>
+    <p>Descrição: {{=sobre_evento['descricao']}}</p>
+    <p>Inicia em: {{=sobre_evento['data_inicio']}}</p>
+    <p>Termina em: {{=sobre_evento['data_final']}}</p>
+    <h3>Contatos</h3>
+    <ul>
+        {{if sobre_evento['url_facebook']:}}
+            <li class="facebook" ><a href="{{sobre_evento['url_facebook']}}"><span class="fa fa-facebook"></span></a></li>
+        {{else:}}
+            <li class="muted" ><span class="fa fa-facebook"></span></li>
+        {{pass}}
+
+        {{if sobre_evento['url_twitter']:}}
+            <li class="twitter" ><a href="{{sobre_evento['url_twitter']}}"><span class="fa fa-twitter"></span></a></li>
+        {{else:}}
+            <li class="muted" ><span class="fa fa-twitter"></span></li>
+        {{pass}}
+
+        {{if sobre_evento['url_youtube']:}}
+            <li class="youtube" ><a href="{{sobre_evento['url_youtube']}}"><span class="fa fa-youtube"></span></a></li>
+        {{else:}}
+            <li class="muted" ><span class="fa fa-youtube"></span></li>
+        {{pass}}
+
+        {{if sobre_evento['url_gplus']:}}
+            <li class="google-plus" ><a href="{{sobre_evento['url_gplus']}}"><span class="fa fa-google-plus"></span></a></li>
+        {{else:}}
+            <li class="muted" ><span class="fa fa-google-plus"></span></li>
+        {{pass}}
+    </ul>
+
+</div>
+
+<div class="organizadores row">
+    <h1>Organizadores</h1>
+    {{for organizador in organizadores:}}
+        <div class="span4">
+            {{if organizador['organizador']['foto']:}}
+                <img src="{{=URL('download',args=[organizador['organizador']['foto']])}}" alt="organizador" class="image-rounded">
+            {{else:}}
+                <p class="text-center"><span class="fa fa-photo fa-5x"></span></p>
+            {{pass}}
+            <p class="text-center">{{=organizador['auth_user']['first_name']}} {{=organizador['auth_user']['last_name']}}</p>
+            <ul>
+                <li><span class="fa fa-envelope-o"></span> {{=organizador['auth_user']['email']}}</li>
+                {{if organizador['organizador']['url_github']:}}
+                    <li><span class="fa fa-github"></span> {{=organizador['organizador']['url_github']}}</li>
+                {{pass}}
+                {{if organizador['organizador']['url_facebook']:}}
+                    <li><span class="fa fa-facebook"></span> {{=organizador['organizador']['url_facebook']}}</li>
+                {{pass}}
+                {{if organizador['organizador']['url_twitter']:}}
+                    <li><span class="fa fa-twitter"></span> {{=organizador['organizador']['url_twitter']}}</li>
+                {{pass}}
+                {{if organizador['organizador']['url_linkedin']:}}
+                    <li><span class="fa fa-linkedin"></span> {{=organizador['organizador']['url_linkedin']}}</li>
+                {{pass}}
+                {{if organizador['organizador']['url_gplus']:}}
+                    <li><span class="fa fa-google-plus"></span>{{=organizador['organizador']['url_gplus']}}</li>
+                {{pass}}
+            </ul>
+        </div>
+    {{pass}}
+</div>
+
+<div class="patrocinadores row">
+    <h1>Patrocinadores</h1>
+    <div class="container platina">
+        <h3>Platina</h3>
+        {{if patrocinadores:}}
+            {{for patrocinador in patrocinadores:}}
+                {{if patrocinador['plano'] == "Platina":}}
+                    <a href="{{=patrocinador['url_empresa']}}">
+                    <div class="span4">
+                        {{if patrocinador['foto']:}}
+                            <img src="{{=URL('download',args=[patrocinador['foto']])}}" alt="foto do patrocinador" class="img-circle">
+                        {{else:}}
+                            <p class="text-center"><span class="fa fa-dollar"></span></p>
+                        {{pass}}
+                    </div>
+                    </a>
+                {{pass}}
+            {{pass}}
+        {{else:}}
+            <h4>Ainda temos espaço para patrocinadores Platina. Entre em contato.</h4>
+        {{pass}}
+    </div>
+    <div class="container ouro">
+        <h3>Ouro</h3>
+        {{for patrocinador in patrocinadores:}}
+            {{if patrocinador['plano'] == "Ouro":}}
+                <a href="{{=patrocinador['url_empresa']}}">
+                <div class="span3">
+                    {{if patrocinador['foto']:}}
+                        <img src="{{=URL('download',args=[patrocinador['foto']])}}" alt="foto do patrocinador" class="img-circle">
+                    {{else:}}
+                        <p class="text-center"><span class="fa fa-dollar"></span></p>
+                    {{pass}}
+                </div>
+                </a>
+            {{pass}}
+        {{pass}}
+    </div>
+    <div class="container prata">
+        <h3>Prata</h3>
+        {{for patrocinador in patrocinadores:}}
+            {{if patrocinador['plano'] == "Prata":}}
+                <a href="{{=patrocinador['url_empresa']}}">
+                <div class="span2">
+                    {{if patrocinador['foto']:}}
+                        <img src="{{=URL('download',args=[patrocinador['foto']])}}" alt="foto do patrocinador" class="img-circle">
+                    {{else:}}
+                        <p class="text-center"><span class="fa fa-dollar"></span></p>
+                    {{pass}}
+                </div>
+                </a>
+            {{pass}}
+        {{pass}}
+    </div>
+
+    <div class="container bronze">
+        <h3>Bronze</h3>
+        {{for patrocinador in patrocinadores:}}
+            {{if patrocinador['plano'] == "Bronze":}}
+                <a href="{{=patrocinador['url_empresa']}}">
+                <div class="span1">
+                    {{if patrocinador['foto']:}}
+                        <img src="{{=URL('download',args=[patrocinador['foto']])}}" alt="foto do patrocinador" class="img-circle">
+                    {{else:}}
+                        <p class="text-center"><span class="fa fa-dollar"></span></p>
+                    {{pass}}
+                </div>
+                </a>
+            {{pass}}
+        {{pass}}
+    </div>
+
+</div>
+
+
+
+
+<div class="atividades row">
+   <h1>Atividades</h1>
+   <!-- lista de atividades -->
+   <div class="container">
+           <div class="row">
+               <div class="span12">
+                   <ul class="event-list">
+                       {{for atividade in atividades:}}
+                       {{data = atividade['atividade']['data_hora_inicio'].split()[0]}}
+                       {{hora = atividade['atividade']['data_hora_inicio'].split()[1]}}
+                        <li>
+                            <time datetime="{{=atividade['atividade']['data_hora_inicio']}}">
+                                <span class="day">{{=data[-2:]}}</span>
+                                <span class="month">{{=data[5:7]}}</span>
+                                <span class="year">{{=data[:5]}}</span>
+                                <span class="time">{{=hora}}</span>
+                            </time>
+                            <div class="info">
+                                <h2 class="title">{{=atividade['atividade']['tipo_atividade']}} - {{=atividade['atividade']['titulo'].capitalize()}}</h2>
+                                <p class="desc">{{=atividade['atividade']['descricao']}}</p>
+                                <p>Começa {{=atividade['atividade']['data_hora_inicio']}}</p>
+                                <p>Termina {{=atividade['atividade']['data_hora_final']}}</p>
+                                <p>Palestrante: <a href="{{=URL('palestrante', args=[atividade['palestrante']['id']])}}">
+                                    {{=atividade['palestrante']['nome']}}</p>
+                                </a>
+                                <p>bio: {{=atividade['palestrante']['bio']}} </p>
+
+                            </div>
+                        </li>
+                       {{pass}}
+                   </ul>
+               </div>
+           </div>
+       </div>
+</div>
