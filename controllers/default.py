@@ -86,9 +86,11 @@ def inscrever():
             URL(c='api', f='atividade', args=[_id], host='localhost:8000'))
         atividade = json.loads(chamada_api.read())
         chamada_api.close()
-        db.vinculo_usuario_atividade.insert(usuario=auth.user_id, atividade=_id)
+        db.vinculo_usuario_atividade.insert(
+            usuario=auth.user_id, atividade=_id)
         db.commit()
-        mensagem = "Parabéns, você foi inscrito em {} - {}".format(atividade['tipo_atividade'], atividade['titulo'])
+        mensagem = "Parabéns, você foi inscrito em {} - {}".format(
+            atividade['tipo_atividade'], atividade['titulo'])
     except HTTPError:
         db.rollback()
         raise HTTP(404)
@@ -97,8 +99,14 @@ def inscrever():
         mensagem = "Você já está inscrito nesta atividade."
     return dict(mensagem=mensagem, atividade=atividade)
 
+
 def horario():
-    return dict(agenda=['evento1','evento2','evento3'])
+    query = db.vinculo_usuario_atividade.usuario == auth.user_id
+    query &= db.vinculo_usuario_atividade.atividade == db.atividade.id
+    if request.vars.evento:
+        query &= db.atividade.evento_relacionado == request.vars.evento
+    atividades = db(query).select(orderby=db.atividade.data_hora_inicio)
+    return dict(atividades=atividades)
 
 
 def user():

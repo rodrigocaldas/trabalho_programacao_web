@@ -1,2 +1,9 @@
-{{=agenda}}
+{{for atividade in atividades:}}
+<p>{{=atividade.atividade.tipo_atividade}}</p>
+<p>{{=atividade.atividade.titulo}}</p>
+<p>{{=atividade.atividade.descricao}}</p>
+<p>{{=atividade.atividade.data_hora_inicio}}</p>
+<p>{{=atividade.atividade.data_hora_final}}</p>
+<p>==============================================</p>
+{{pass}}
 
