@@ -73,3 +73,25 @@ def atividades():
         return atividades.as_json()
     else:
         raise HTTP(404)
+
+
+def palestrante():
+    if not request.args(0):
+        raise HTTP(404)
+    _id = request.args(0)
+    palestrante = db(db.palestrante.id == _id).select().first()
+    if palestrante:
+        return palestrante.as_json()
+    else:
+        raise HTTP(404)
+
+
+def atividade():
+    if not request.args(0):
+        raise HTTP(404)
+    _id = request.args(0)
+    atividade = db(db.atividade.id == _id).select().first()
+    if atividade:
+        return atividade.as_json()
+    else:
+        raise HTTP(404)

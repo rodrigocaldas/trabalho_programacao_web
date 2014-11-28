@@ -42,6 +42,12 @@
     font-weight: 900;
     line-height: 1;
 }
+.event-list > li time > .year{
+    display: block;
+    font-size: 16pt;
+    font-weight: 100;
+    line-height: 1;
+}
 .event-list > li > img {
     width: 100%;
 }
@@ -128,7 +134,7 @@
         position: relative;
         display: block;
         width: 100%;
-        height: 180px;
+        height: 250px;
         padding: 0;
     }
     .event-list > li > time,
@@ -147,13 +153,13 @@
     .event-list > li > time,
     .event-list > li > img {
         width: 120px;
-        height: 180px;
+        height: 250px;
         padding: 0;
         margin: 0;
     }
     .event-list > li > .info {
         position: relative;
-        height: 180px;
+        height: 250px;
         text-align: left;
         padding-right: 40px;
     }

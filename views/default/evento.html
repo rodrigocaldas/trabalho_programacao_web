@@ -80,22 +80,18 @@
     <h1>Patrocinadores</h1>
     <div class="container platina">
         <h3>Platina</h3>
-        {{if patrocinadores:}}
-            {{for patrocinador in patrocinadores:}}
-                {{if patrocinador['plano'] == "Platina":}}
-                    <a href="{{=patrocinador['url_empresa']}}">
-                    <div class="span4">
-                        {{if patrocinador['foto']:}}
-                            <img src="{{=URL('download',args=[patrocinador['foto']])}}" alt="foto do patrocinador" class="img-circle">
-                        {{else:}}
-                            <p class="text-center"><span class="fa fa-dollar"></span></p>
-                        {{pass}}
-                    </div>
-                    </a>
-                {{pass}}
+        {{for patrocinador in patrocinadores:}}
+            {{if patrocinador['plano'] == "Platina":}}
+                <a href="{{=patrocinador['url_empresa']}}">
+                <div class="span4">
+                    {{if patrocinador['foto']:}}
+                        <img src="{{=URL('download',args=[patrocinador['foto']])}}" alt="foto do patrocinador" class="img-circle">
+                    {{else:}}
+                        <p class="text-center"><span class="fa fa-dollar"></span></p>
+                    {{pass}}
+                </div>
+                </a>
             {{pass}}
-        {{else:}}
-            <h4>Ainda temos espaço para patrocinadores Platina. Entre em contato.</h4>
         {{pass}}
     </div>
     <div class="container ouro">
@@ -153,7 +149,7 @@
 
 
 
-<div class="atividades row">
+<div  id="atividades" class="row">
    <h1>Atividades</h1>
    <!-- lista de atividades -->
    <div class="container">
@@ -167,7 +163,7 @@
                             <time datetime="{{=atividade['atividade']['data_hora_inicio']}}">
                                 <span class="day">{{=data[-2:]}}</span>
                                 <span class="month">{{=data[5:7]}}</span>
-                                <span class="year">{{=data[:5]}}</span>
+                                <span class="year">{{=data[:4]}}</span>
                                 <span class="time">{{=hora}}</span>
                             </time>
                             <div class="info">
@@ -179,7 +175,7 @@
                                     {{=atividade['palestrante']['nome']}}</p>
                                 </a>
                                 <p>bio: {{=atividade['palestrante']['bio']}} </p>
-
+                                <a href="{{=URL('inscrever',args=[atividade['atividade']['id']])}}" class="btn btn-success btn-large"><span class="fa fa-check"></span> Inscrever em atividade </a>
                             </div>
                         </li>
                        {{pass}}

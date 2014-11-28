@@ -1,0 +1,12 @@
+{{extend 'layout.html'}}
+{{if palestrante['foto']:}}
+        <img class="img-polaroid" src="{{=URL('download',args=[palestrante['foto']])}}" alt="foto do evento">
+{{pass}}
+<p>Nome: {{=palestrante['nome']}}</p>
+<p>Bio: {{=palestrante['bio']}}</p>
+<p>Facebook: {{=palestrante['url_facebook']}}</p>
+<p>Google Plus: {{=palestrante['url_gplus']}}</p>
+<p>Twitter: {{=palestrante['url_twitter']}}</p>
+<p>Github: {{=palestrante['url_github']}}</p>
+<p>LinkedIn: {{=palestrante['url_linkedin']}}</p>
+

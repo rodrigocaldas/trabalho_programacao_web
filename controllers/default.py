@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from urllib2 import urlopen, HTTPError
+from sqlite3 import IntegrityError
 import json
 
 
@@ -54,7 +55,50 @@ def evento():
         sobre_evento=sobre_evento,
         organizadores=organizadores,
         atividades=atividades
-        )
+    )
+
+
+def palestrante():
+    # verifica se url tem argumentos
+    if not request.args(0):
+        return HTTP(404)
+    _id = request.args(0)
+
+    try:
+        # captura o evento
+        chamada_api = urlopen(
+            URL(c='api', f='palestrante', args=[_id], host='localhost:8000'))
+        palestrante = json.loads(chamada_api.read())
+        chamada_api.close()
+    except HTTPError as e:
+        raise HTTP(404)
+
+    return dict(palestrante=palestrante)
+
+
+@auth.requires_login()
+def inscrever():
+    if not request.args(0):
+        return HTTP(404)
+    _id = request.args(0)
+    try:
+        chamada_api = urlopen(
+            URL(c='api', f='atividade', args=[_id], host='localhost:8000'))
+        atividade = json.loads(chamada_api.read())
+        chamada_api.close()
+        db.vinculo_usuario_atividade.insert(usuario=auth.user_id, atividade=_id)
+        db.commit()
+        mensagem = "Parabéns, você foi inscrito em {} - {}".format(atividade['tipo_atividade'], atividade['titulo'])
+    except HTTPError:
+        db.rollback()
+        raise HTTP(404)
+    except IntegrityError:
+        db.rollback()
+        mensagem = "Você já está inscrito nesta atividade."
+    return dict(mensagem=mensagem, atividade=atividade)
+
+def horario():
+    return dict(agenda=['evento1','evento2','evento3'])
 
 
 def user():

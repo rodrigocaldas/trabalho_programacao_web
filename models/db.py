@@ -220,6 +220,7 @@ db.define_table(
     'vinculo_usuario_atividade',
     Field('usuario', 'reference auth_user'),
     Field('atividade', 'reference atividade'),
+    primarykey=['usuario','atividade']
 )
 
 db.vinculo_usuario_atividade.usuario.requires = IS_IN_DB(
