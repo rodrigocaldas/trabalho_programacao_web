@@ -186,6 +186,7 @@ db.define_table(
     'vinculo_organizador_evento',
     Field('organizador', 'reference auth_user'),
     Field('evento', 'reference evento'),
+    primarykey=['organizador', 'evento']
 )
 
 db.vinculo_organizador_evento.organizador.requires = IS_IN_DB(
@@ -203,6 +204,7 @@ db.define_table(
     'vinculo_patrocinador_evento',
     Field('patrocinador', 'reference patrocinador'),
     Field('evento', 'reference evento'),
+    primarykey=['patrocinador', 'evento']
 )
 
 db.vinculo_patrocinador_evento.patrocinador.requires = IS_IN_DB(
