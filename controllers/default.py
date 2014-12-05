@@ -1,54 +1,65 @@
 # -*- coding: utf-8 -*-
 
-from urllib2 import urlopen, HTTPError
+
 from sqlite3 import IntegrityError
-import json
+import requests
 
 
 def index():
-    chamada_api = urlopen(URL(c='api', f='eventos', host='localhost:8000'))
-    eventos = json.loads(chamada_api.read())
-    chamada_api.close()
+    chamada_api = requests.get(
+        URL(
+            c='api',
+            f='eventos',
+              host='localhost:8000'
+        )
+    )
+    eventos = chamada_api.json()
     return dict(eventos=eventos[:3])
 
 
 def evento():
 
-    # verifica se url tem argumentos
-    if not request.args(0):
-        return HTTP(404)
-    _id = request.args(0)
+    _id = request.args(0, cast=int)
 
-    try:
-        # captura o evento
-        chamada_api = urlopen(
-            URL(c='api', f='evento', args=[_id], host='localhost:8000'))
-        sobre_evento = json.loads(chamada_api.read())
-        chamada_api.close()
-
-        # captura patrocinadores de um evento
-        chamada_api = urlopen(
-            URL(c='api', f='patrocinadores', args=[_id], host='localhost:8000')
+    # captura o evento
+    sobre_evento = requests.get(
+        URL(
+            c='api',
+            f='evento',
+            args=[_id],
+            host='localhost:8000'
         )
-        patrocinadores = json.loads(chamada_api.read())
-        chamada_api.close()
+    ).json()
 
-        # captura organizadores de um evento
-        chamada_api = urlopen(
-            URL(c='api', f='organizadores', args=[_id], host='localhost:8000')
+    # captura patrocinadores de um evento
+    patrocinadores = requests.get(
+        URL(
+            c='api',
+            f='patrocinadores',
+            args=[_id],
+            host='localhost:8000'
         )
-        organizadores = json.loads(chamada_api.read())
-        chamada_api.close()
+    ).json()
 
-        # captura atividades de um evento
-        chamada_api = urlopen(
-            URL(c='api', f='atividades', args=[_id], host='localhost:8000')
+    # captura organizadores de um evento
+    organizadores = requests.get(
+        URL(
+            c='api',
+            f='organizadores',
+            args=[_id],
+            host='localhost:8000'
         )
-        atividades = json.loads(chamada_api.read())
-        chamada_api.close()
+    ).json()
 
-    except HTTPError as e:
-        raise HTTP(404)
+    # captura atividades de um evento
+    atividades = requests.get(
+        URL(
+            c='api',
+            f='atividades',
+            args=[_id],
+            host='localhost:8000'
+        )
+    ).json()
 
     return dict(
         patrocinadores=patrocinadores,
@@ -59,47 +70,57 @@ def evento():
 
 
 def palestrante():
-    # verifica se url tem argumentos
-    if not request.args(0):
-        return HTTP(404)
-    _id = request.args(0)
 
-    try:
-        # captura o evento
-        chamada_api = urlopen(
-            URL(c='api', f='palestrante', args=[_id], host='localhost:8000'))
-        palestrante = json.loads(chamada_api.read())
-        chamada_api.close()
-    except HTTPError as e:
-        raise HTTP(404)
+    _id = request.args(0, cast=int)
+
+    palestrante = requests.get(
+        URL(
+            c='api',
+            f='palestrante',
+            args=[_id],
+            host='localhost:8000'
+        )
+    ).json()
 
     return dict(palestrante=palestrante)
 
 
 @auth.requires_login()
-def inscrever():
-    if not request.args(0):
-        return HTTP(404)
+def inscrever_em_atividade():
+
     _id = request.args(0)
+
+    atividade = requests.get(
+        URL(
+            c='api',
+            f='atividade',
+              args=[_id],
+            host='localhost:8000'
+        )
+    ).json()
     try:
-        chamada_api = urlopen(
-            URL(c='api', f='atividade', args=[_id], host='localhost:8000'))
-        atividade = json.loads(chamada_api.read())
-        chamada_api.close()
-        db.vinculo_usuario_atividade.insert(
-            usuario=auth.user_id, atividade=_id)
-        db.commit()
+        db.vinculo_usuario_atividade.validate_and_insert(
+            usuario=auth.user_id,
+            atividade=_id
+        )
         mensagem = "Parabéns, você foi inscrito em {} - {}".format(
-            atividade['tipo_atividade'], atividade['titulo'])
-    except HTTPError:
-        db.rollback()
-        raise HTTP(404)
+            atividade['tipo_atividade'],
+            atividade['titulo']
+        )
     except IntegrityError:
-        db.rollback()
         mensagem = "Você já está inscrito nesta atividade."
     return dict(mensagem=mensagem, atividade=atividade)
 
 
+@auth.requires_login(
+    otherwise=lambda: redirect(
+        URL(
+            f='user',
+            args=['login'],
+              vars={'_next': request.url},
+            extension='html')
+    )
+)
 def horario():
     query = db.vinculo_usuario_atividade.usuario == auth.user_id
     query &= db.vinculo_usuario_atividade.atividade == db.atividade.id

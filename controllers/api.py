@@ -2,6 +2,10 @@
 # -*- coding: utf-8 -*-
 
 
+def raise404(body='', cookies=None, **headers):
+    raise HTTP(404, body, cookies, **headers)
+
+
 def eventos():
     if request.vars['data']:
         data = request.vars['data']
@@ -9,89 +13,64 @@ def eventos():
                      (db.evento.data_final >= data)).select()
     else:
         eventos = db(db.evento).select(orderby=db.evento.data_inicio)
+    response.headers['Content-Type'] = 'text/json'
     return eventos.as_json()
 
 
 def evento():
-    if not request.args(0):
-        raise HTTP(404)
-    _id = request.args(0)
-    evento = db(db.evento.id == _id).select().first()
-    if evento:
-        return evento.as_json()
-    else:
-        raise HTTP(404)
+    _id = request.args(0, cast=int)
+    evento = db.evento(id=_id) or raise404()
+    response.headers['Content-Type'] = 'text/json'
+    return evento.as_json()
 
 
 def patrocinadores():
-    if not request.args(0):
-        raise HTTP(404)
-    evento = request.args(0)
-    if evento:
-        evento = request.args(0)
-        query = db.vinculo_patrocinador_evento.evento == evento
-        query &= db.patrocinador.id == db.vinculo_patrocinador_evento.patrocinador
-        patrocinadores = db(query).select(
-            db.patrocinador.nome,
-            db.patrocinador.plano,
-            db.patrocinador.url_empresa,
-            db.patrocinador.foto
-        )
-        return patrocinadores.as_json()
-    else:
-        raise HTTP(404)
+    evento = request.args(0, cast=int)
+    query = db.vinculo_patrocinador_evento.evento == evento
+    query &= db.patrocinador.id == db.vinculo_patrocinador_evento.patrocinador
+    patrocinadores = db(query).select(
+        db.patrocinador.nome,
+        db.patrocinador.plano,
+        db.patrocinador.url_empresa,
+        db.patrocinador.foto
+    )
+    response.headers['Content-Type'] = 'text/json'
+    return patrocinadores.as_json()
 
 
 def organizadores():
-    if not request.args(0):
-        raise HTTP(404)
-    evento = request.args(0)
-    if evento:
-        evento = request.args(0)
-        query = db.vinculo_organizador_evento.evento == evento
-        query &= db.organizador.id == db.vinculo_organizador_evento.organizador
-        query &= db.auth_user.id == db.vinculo_organizador_evento.organizador
-        organizadores = db(query).select(
-            db.auth_user.first_name, db.auth_user.last_name,
-            db.auth_user.email, db.organizador.usuario, db.organizador.foto,
-            db.organizador.url_facebook, db.organizador.url_twitter,
-            db.organizador.url_gplus, db.organizador.url_github,
-            db.organizador.url_linkedin
-        )
-        return organizadores.as_json()
-    else:
-        raise HTTP(404)
+    evento = request.args(0, cast=int)
+    query = db.vinculo_organizador_evento.evento == evento
+    query &= db.organizador.id == db.vinculo_organizador_evento.organizador
+    query &= db.auth_user.id == db.vinculo_organizador_evento.organizador
+    organizadores = db(query).select(
+        db.auth_user.first_name, db.auth_user.last_name,
+        db.auth_user.email, db.organizador.usuario, db.organizador.foto,
+        db.organizador.url_facebook, db.organizador.url_twitter,
+        db.organizador.url_gplus, db.organizador.url_github,
+        db.organizador.url_linkedin
+    )
+    response.headers['Content-Type'] = 'text/json'
+    return organizadores.as_json()
 
 
 def atividades():
-    if not request.args(0):
-        raise HTTP(404)
-    _id = request.args(0)
+    _id = request.args(0, cast=int)
     atividades = db((db.atividade.evento_relacionado == _id) &
                     (db.palestrante.id == db.atividade.palestrante)).select()
-    if atividades:
-        return atividades.as_json()
-    else:
-        raise HTTP(404)
+    response.headers['Content-Type'] = 'text/json'
+    return atividades.as_json()
 
 
 def palestrante():
-    if not request.args(0):
-        raise HTTP(404)
-    _id = request.args(0)
-    palestrante = db(db.palestrante.id == _id).select().first()
-    if palestrante:
-        return palestrante.as_json()
-    else:
-        raise HTTP(404)
+    _id = request.args(0, cast=int)
+    palestrante = db.palestrante(id=_id) or raise404()
+    response.headers['Content-Type'] = 'text/json'
+    return palestrante.as_json()
 
 
 def atividade():
-    if not request.args(0):
-        raise HTTP(404)
-    _id = request.args(0)
-    atividade = db(db.atividade.id == _id).select().first()
-    if atividade:
-        return atividade.as_json()
-    else:
-        raise HTTP(404)
+    _id = request.args(0, cast=int)
+    atividade = db.atividade(id=_id) or raise404()
+    response.headers['Content-Type'] = 'text/json'
+    return atividade.as_json()

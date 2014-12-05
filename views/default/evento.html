@@ -175,7 +175,7 @@
                                     {{=atividade['palestrante']['nome']}}</p>
                                 </a>
                                 <p>bio: {{=atividade['palestrante']['bio']}} </p>
-                                <a href="{{=URL('inscrever',args=[atividade['atividade']['id']])}}" class="btn btn-success btn-large"><span class="fa fa-check"></span> Inscrever em atividade </a>
+                                <a href="{{=URL('inscrever_em_atividade',args=[atividade['atividade']['id']])}}" class="btn btn-success btn-large"><span class="fa fa-check"></span> Inscrever em atividade </a>
                             </div>
                         </li>
                        {{pass}}
