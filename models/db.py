@@ -14,7 +14,40 @@ auth = Auth(db)
 auth.settings.extra_fields['auth_user'] = [
     Field('instituicao', label="Instituição de Ensino", length=120),
     Field('matricula', label='Matrícula', length=32),
-    Field('telefone')
+    Field('telefone'),
+    Field('foto', 'upload', requires=IS_EMPTY_OR(IS_IMAGE())),
+    Field(
+        'url_facebook',
+        requires=IS_EMPTY_OR(IS_URL()),
+        label="Facebook (https://facebook.com/seu-nome)",
+    ),
+    Field(
+        'url_twitter',
+        requires=IS_EMPTY_OR(IS_URL()),
+        label="Twitter (https://twitter.com/seu-nome)",
+    ),
+    Field(
+        'url_gplus',
+        requires=IS_EMPTY_OR(IS_URL()),
+        label="Google Plus (https://plus.google.com/u/0/+Seu-nome)"
+    ),
+    Field(
+        'url_github',
+        requires=IS_EMPTY_OR(IS_URL()),
+        label="Github (https://github.com/Seu-Git)"
+    ),
+    Field(
+        'url_linkedin',
+        requires=IS_EMPTY_OR(IS_URL()),
+        label="LinkedIn "
+    )
+]
+
+auth.settings.register_fields = [
+    'first_name',
+    'last_name',
+    'email',
+    'password'
 ]
 
 
@@ -72,36 +105,6 @@ db.define_table(
     Field('logotipo', 'upload', requires=IS_EMPTY_OR(IS_IMAGE())),
 )
 
-db.define_table(
-    'organizador',
-    Field('usuario', 'reference auth_user'),
-    Field('foto', 'upload', requires=IS_EMPTY_OR(IS_IMAGE())),
-    Field(
-        'url_facebook',
-        requires=IS_EMPTY_OR(IS_URL()),
-        label="Facebook (https://facebook.com/seu-nome)",
-    ),
-    Field(
-        'url_twitter',
-        requires=IS_EMPTY_OR(IS_URL()),
-        label="Twitter (https://twitter.com/seu-nome)",
-    ),
-    Field(
-        'url_gplus',
-        requires=IS_EMPTY_OR(IS_URL()),
-        label="Google Plus (https://plus.google.com/u/0/+Seu-nome)"
-    ),
-    Field(
-        'url_github',
-        requires=IS_EMPTY_OR(IS_URL()),
-        label="Github (https://github.com/Seu-Git)"
-    ),
-    Field(
-        'url_linkedin',
-        requires=IS_EMPTY_OR(IS_URL()),
-        label="LinkedIn "
-    ),
-)
 
 db.define_table(
     'palestrante',

@@ -28,7 +28,6 @@ def evento():
         )
     ).json()
 
-    # captura patrocinadores de um evento
     patrocinadores = requests.get(
         URL(
             c='api',
@@ -38,7 +37,7 @@ def evento():
         )
     ).json()
 
-    # captura organizadores de um evento
+    # # captura organizadores de um evento
     organizadores = requests.get(
         URL(
             c='api',
@@ -133,7 +132,6 @@ def horario():
         query &= db.atividade.evento_relacionado == request.vars.evento
     atividades = db(query).select(orderby=db.atividade.data_hora_inicio)
     return dict(atividades=atividades)
-
 
 def user():
     """

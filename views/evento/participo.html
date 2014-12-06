@@ -1,0 +1,20 @@
+{{extend 'layout.html'}}
+{{if eventos:}}
+    <table class="table table-striped">
+    {{for evento in eventos:}}
+        <tr>
+            <th>Nome</th>
+            <th>Editar</th>
+        </tr>
+        <tr>
+            <td>{{=evento.nome}}</td>
+            <td>
+                <a href="{{=URL('default', 'horario.pdf', vars={'evento':evento.id})}}" class="btn btn-inverse"><i class="icon-pencil icon-white"></i> Consultar horário de atividades</a>
+            </td>
+        </tr>
+        </div>
+    {{pass}}
+    </table>
+{{else:}}
+    <h1>Você não participa de  nenhum evento.</h1>
+{{pass}}

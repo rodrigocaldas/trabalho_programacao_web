@@ -16,38 +16,42 @@ response.meta.generator = 'Web2py Web Framework'
 # your http://google.com/analytics id
 response.google_analytics_id = None
 
-#########################################################################
+# #########################################################################
 # this is the main application menu add/remove items as required
-#########################################################################
+# #########################################################################
 
 response.menu = [
     (T('Home'), False, URL('default', 'index'), []),
-    (T('Meu horário'), False, URL('default', 'horario.pdf'), []),
-    (T('Eventos'), False, URL(), [
-        (T('Criar'), False, URL('default', 'criarevento'), []),
-        (T('Atividade'), False, URL(), [
-            (T('Listar'), False,
-             URL('default', 'listaratividade'), []),
-            (T('Criar'), False,
-             URL('default', 'criaratividade'), [])
-        ]),
-        (T('Palestrante'), False, URL(), [
-            (T('Listar'), False,
-             URL('default', 'listarpalestrante'), []),
-            (T('Adicionar'), False,
-             URL('default', 'adicionarpalestrante'), [])
-        ]),
-        (T('Patrocinador'), False, URL(), [
-            (T('Listar'), False,
-             URL('default', 'listarpatrocinadores'), []),
-            (T('Adicionar'), False,
-             URL('default', 'adicionarpatrocinador'), [])
-        ]),
-        (T('Organizador'), False, URL(), [
-            (T('Listar'), False,
-             URL('default', 'listarorganizadores'), []),
-            (T('Adicionar'), False,
-             URL('default', 'adicionarorganizadores'), [])
-        ])
-    ])
 ]
+
+if auth.is_logged_in():
+    response.menu += [
+        (T('Eventos'), False, '#', [
+            (T('que sou dono'), False, URL('evento', 'sou_dono'), []),
+            (T('que participo'), False, URL('evento', 'participo'), []),
+            (T('+ criar evento'), False, URL('evento', 'criar'), [])
+        ])
+    ]
+
+
+# response.menu += (T('Eventos'), False, URL(), [])
+# (T('Palestrante'), False, URL(), [
+# (T('Listar'), False,
+# URL('default', 'listarpalestrante'), []),
+# (T('Adicionar'), False,
+# URL('default', 'adicionarpalestrante'), [])
+# ]),
+# (T('Patrocinador'), False, URL(), [
+# (T('Listar'), False,
+# URL('default', 'listarpatrocinadores'), []),
+# (T('Adicionar'), False,
+# URL('default', 'adicionarpatrocinador'), [])
+# ]),
+# (T('Organizador'), False, URL(), [
+# (T('Listar'), False,
+# URL('default', 'listarorganizadores'), []),
+# (T('Adicionar'), False,
+# URL('default', 'adicionarorganizadores'), [])
+# ])
+# ])
+# ]

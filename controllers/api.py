@@ -41,15 +41,8 @@ def patrocinadores():
 def organizadores():
     evento = request.args(0, cast=int)
     query = db.vinculo_organizador_evento.evento == evento
-    query &= db.organizador.id == db.vinculo_organizador_evento.organizador
     query &= db.auth_user.id == db.vinculo_organizador_evento.organizador
-    organizadores = db(query).select(
-        db.auth_user.first_name, db.auth_user.last_name,
-        db.auth_user.email, db.organizador.usuario, db.organizador.foto,
-        db.organizador.url_facebook, db.organizador.url_twitter,
-        db.organizador.url_gplus, db.organizador.url_github,
-        db.organizador.url_linkedin
-    )
+    organizadores = db(query).select()
     response.headers['Content-Type'] = 'text/json'
     return organizadores.as_json()
 

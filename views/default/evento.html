@@ -48,28 +48,28 @@
     <h1>Organizadores</h1>
     {{for organizador in organizadores:}}
         <div class="span4">
-            {{if organizador['organizador']['foto']:}}
-                <img src="{{=URL('download',args=[organizador['organizador']['foto']])}}" alt="organizador" class="image-rounded">
+            {{if organizador['auth_user']['foto']:}}
+                <img src="{{=URL('download',args=[organizador['auth_user']['foto']])}}" alt="organizador" class="image-rounded">
             {{else:}}
                 <p class="text-center"><span class="fa fa-photo fa-5x"></span></p>
             {{pass}}
             <p class="text-center">{{=organizador['auth_user']['first_name']}} {{=organizador['auth_user']['last_name']}}</p>
             <ul>
                 <li><span class="fa fa-envelope-o"></span> {{=organizador['auth_user']['email']}}</li>
-                {{if organizador['organizador']['url_github']:}}
-                    <li><span class="fa fa-github"></span> {{=organizador['organizador']['url_github']}}</li>
+                {{if organizador['auth_user']['url_github']:}}
+                    <li><span class="fa fa-github"></span> {{=organizador['auth_user']['url_github']}}</li>
                 {{pass}}
-                {{if organizador['organizador']['url_facebook']:}}
-                    <li><span class="fa fa-facebook"></span> {{=organizador['organizador']['url_facebook']}}</li>
+                {{if organizador['auth_user']['url_facebook']:}}
+                    <li><span class="fa fa-facebook"></span> {{=organizador['auth_user']['url_facebook']}}</li>
                 {{pass}}
-                {{if organizador['organizador']['url_twitter']:}}
-                    <li><span class="fa fa-twitter"></span> {{=organizador['organizador']['url_twitter']}}</li>
+                {{if organizador['auth_user']['url_twitter']:}}
+                    <li><span class="fa fa-twitter"></span> {{=organizador['auth_user']['url_twitter']}}</li>
                 {{pass}}
-                {{if organizador['organizador']['url_linkedin']:}}
-                    <li><span class="fa fa-linkedin"></span> {{=organizador['organizador']['url_linkedin']}}</li>
+                {{if organizador['auth_user']['url_linkedin']:}}
+                    <li><span class="fa fa-linkedin"></span> {{=organizador['auth_user']['url_linkedin']}}</li>
                 {{pass}}
-                {{if organizador['organizador']['url_gplus']:}}
-                    <li><span class="fa fa-google-plus"></span>{{=organizador['organizador']['url_gplus']}}</li>
+                {{if organizador['auth_user']['url_gplus']:}}
+                    <li><span class="fa fa-google-plus"></span>{{=organizador['auth_user']['url_gplus']}}</li>
                 {{pass}}
             </ul>
         </div>

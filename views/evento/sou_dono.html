@@ -1,0 +1,23 @@
+{{extend 'layout.html'}}
+{{if eventos:}}
+    <table class="table table-striped">
+    {{for evento in eventos:}}
+        <tr>
+            <th>Nome</th>
+            <th>Editar</th>
+            <th>Deletar</th>
+        </tr>
+        <tr>
+            <td>{{=evento.nome}}</td>
+            <td>
+                <a href="{{=URL('evento', 'editar/'+ str(evento.id))}}" class="btn btn-inverse"><i class="icon-pencil icon-white"></i> Editar evento</a>
+            </td>
+            <td><a href="{{=URL('evento', 'deletar/'+ str(evento.id))}}" class="btn btn-inverse"><i class="icon-trash icon-white"></i> Apagar evento</a></td>
+        </tr>
+        </div>
+
+    {{pass}}
+    </table>
+{{else:}}
+    <h1>Você ainda não criou nenhum evento.</h1>
+{{pass}}
