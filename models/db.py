@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+
+from md5 import md5
 # Banco de dados
 db = DAL('sqlite://storage.sqlite', pool_size=1, check_reserved=['all'])
 
@@ -192,8 +194,11 @@ db.define_table(
     'vinculo_organizador_evento',
     Field('organizador', 'reference auth_user'),
     Field('evento', 'reference evento'),
-    primarykey=['organizador', 'evento']
+    Field('hash_md5', unique=True)
 )
+
+db.vinculo_organizador_evento.hash_md5.compute = lambda row: md5(
+    "{0}{1}".format(row.organizador, row.evento)).hexdigest()
 
 db.vinculo_organizador_evento.organizador.requires = IS_IN_DB(
     db,
@@ -210,8 +215,12 @@ db.define_table(
     'vinculo_patrocinador_evento',
     Field('patrocinador', 'reference patrocinador'),
     Field('evento', 'reference evento'),
-    primarykey=['patrocinador', 'evento']
+    Field('hash_md5', unique=True)
 )
+
+db.vinculo_patrocinador_evento.hash_md5.compute = lambda row: md5(
+    "{0}{1}".format(row.patrocinador, row.evento)).hexdigest()
+
 
 db.vinculo_patrocinador_evento.patrocinador.requires = IS_IN_DB(
     db,
@@ -228,8 +237,11 @@ db.define_table(
     'vinculo_usuario_atividade',
     Field('usuario', 'reference auth_user'),
     Field('atividade', 'reference atividade'),
-    primarykey=['usuario', 'atividade']
+    Field('hash_md5', unique=True)
 )
+
+db.vinculo_usuario_atividade.hash_md5.compute = lambda row: md5(
+    "{0}{1}".format(row.usuario, row.atividade)).hexdigest()
 
 db.vinculo_usuario_atividade.usuario.requires = IS_IN_DB(
     db,
