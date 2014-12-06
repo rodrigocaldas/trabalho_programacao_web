@@ -157,7 +157,13 @@ db.define_table(
     ),
     Field('palestrante'),
     Field('evento_relacionado'),
-    Field('descricao', 'text', label="Descrição", default="")
+    Field('descricao', 'text', label="Descrição", default=""),
+    Field(
+        'vagas',
+        'integer',
+        requires=IS_INT_IN_RANGE(0, 1e100),
+        notnull=True
+    )
 )
 
 db.atividade.palestrante.requires = IS_IN_DB(db, 'palestrante.id', '%(nome)s')

@@ -99,14 +99,19 @@ def inscrever_em_atividade():
         )
     ).json()
     try:
-        db.vinculo_usuario_atividade.validate_and_insert(
-            usuario=auth.user_id,
-            atividade=_id
-        )
-        mensagem = "Parabéns, você foi inscrito em {} - {}".format(
-            atividade['tipo_atividade'],
-            atividade['titulo']
-        )
+        atividade = db.atividade(id=_id)
+        if atividade.vagas == 0:
+            mensagem = "Não há mais vagas"
+        else:
+            db.vinculo_usuario_atividade.validate_and_insert(
+                usuario=auth.user_id,
+                atividade=_id
+            )
+            mensagem = "Parabéns, você foi inscrito em {} - {}".format(
+                atividade['tipo_atividade'],
+                atividade['titulo']
+            )
+            atividade.update_record(vagas=atividade.vagas - 1)
     except IntegrityError:
         mensagem = "Você já está inscrito nesta atividade."
     return dict(mensagem=mensagem, atividade=atividade)
