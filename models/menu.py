@@ -22,5 +22,24 @@ response.google_analytics_id = None
 
 response.menu = [
     (T('Home'), False, URL('default', 'index'), []),
-    (T('Meu horário'),auth.is_logged_in(),URL('default', 'horario.pdf'),[])
+    (T('Meu horário'),auth.is_logged_in(),URL('default', 'horario.pdf'),[]),
+    (T('Eventos'),auth.is_logged_in(),URL(),[
+    	(T('Criar'),auth.is_logged_in(),URL('default', 'criarevento'),[]),
+    	(T('Atividade'),auth.is_logged_in(),URL(),[
+			(T('Listar'),auth.is_logged_in(),URL('default', 'listaratividade'),[]),
+			(T('Criar'),auth.is_logged_in(),URL('default', 'criaratividade'),[])
+		]),
+    	(T('Palestrante'),auth.is_logged_in(),URL(),[
+			(T('Listar'),auth.is_logged_in(),URL('default', 'listarpalestrante'),[]),
+			(T('Adicionar'),auth.is_logged_in(),URL('default', 'adicionarpalestrante'),[])
+		]),
+    	(T('Patrocinador'),auth.is_logged_in(),URL(),[
+			(T('Listar'),auth.is_logged_in(),URL('default', 'listarpatrocinadores'),[]),
+			(T('Adicionar'),auth.is_logged_in(),URL('default', 'adicionarpatrocinador'),[])
+		]),
+    	(T('Organizador'),auth.is_logged_in(),URL(),[
+			(T('Listar'),auth.is_logged_in(),URL('default', 'listarorganizadores'),[]),
+			(T('Adicionar'),auth.is_logged_in(),URL('default', 'adicionarorganizadores'),[])
+		])
+    	])
 ]
