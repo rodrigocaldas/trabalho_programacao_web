@@ -175,7 +175,10 @@
                                     {{=atividade['palestrante']['nome']}}</p>
                                 </a>
                                 <p>bio: {{=atividade['palestrante']['bio']}} </p>
-                                <a href="{{=URL('inscrever_em_atividade',args=[atividade['atividade']['id']])}}" class="btn btn-success btn-large"><span class="fa fa-check"></span> Inscrever em atividade </a>
+                                <p>vagas: {{=atividade['atividade']['vagas']}}</p>
+                                {{if atividade['atividade']['vagas'] > 0:}}
+                                    <a href="{{=URL('inscrever_em_atividade',args=[atividade['atividade']['id']])}}" class="btn btn-success"><span class="fa fa-check"></span> Inscrever em atividade </a>
+                                {{pass}}
                             </div>
                         </li>
                        {{pass}}
