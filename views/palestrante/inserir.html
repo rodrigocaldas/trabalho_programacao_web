@@ -1,0 +1,51 @@
+{{extend 'layout.html'}}
+{{=form.custom.begin}}
+<h1>Palestrante</h1>
+<h6>* campos obrigatórios</h6>
+<div>
+    {{form.custom.widget.nome['_placeholder'] = T('Nome*')}}
+    {{form.custom.widget.nome['_required'] = T('required')}}
+    {{=form.custom.widget.nome}}
+</div>
+
+<div>
+    <label>Foto do palestrante</label>
+    {{=form.custom.widget.foto}}
+</div>
+
+<div>
+    {{form.custom.widget.url_facebook['_placeholder'] = T('Facebook (https://facebook.com/seu-nome)')}}
+    {{=form.custom.widget.url_facebook}}
+</div>
+
+<div>
+    {{form.custom.widget.url_twitter['_placeholder'] = T('Twitter (https://twitter.com/seu-nome)')}}
+    {{=form.custom.widget.url_twitter}}
+</div>
+
+<div>
+    {{form.custom.widget.url_gplus['_placeholder'] = T('Google Plus (https://plus.google.com/u/0/+Seu-nome)')}}
+    {{=form.custom.widget.url_gplus}}
+</div>
+
+<div>
+    {{form.custom.widget.url_github['_placeholder'] = T('GitHub (https://github.com/seu-nome)')}}
+    {{=form.custom.widget.url_github}}
+</div>
+
+<div>
+    {{form.custom.widget.url_linkedin['_placeholder'] = T('Linkedin (https://www.linkedin.com/in/seu-nome)')}}
+    {{=form.custom.widget.url_linkedin}}
+</div>
+
+<div>
+    {{form.custom.widget.bio['_placeholder'] = T('Biografia')}}
+    {{form.custom.widget.bio['_required'] = T('required')}}
+    {{=form.custom.widget.bio}}
+</div>
+
+{{=form.custom.submit}}
+
+{{=form.custom.end}}
+
+

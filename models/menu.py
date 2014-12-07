@@ -5,8 +5,10 @@
 # Customize your APP title, subtitle and menus here
 #########################################################################
 
-response.title = request.application.replace('_', ' ').title()
+
+response.logo = A(IMG(_src=URL('static', '/images/logo.png'), _alt='WebEventos', _style='height:25px'), _href=URL('default', 'static'))
 response.subtitle = ''
+response.title = request.application.replace('_',' ').title()
 
 # read more at http://dev.w3.org/html5/markup/meta.name.html
 response.meta.author = 'Your Name <you@example.com>'
@@ -32,7 +34,12 @@ if auth.is_logged_in():
             (T('que participo'), False, URL('evento', 'participo'), []),
             (T('+ criar evento'), False, URL('evento', 'criar'), []),
             (T('Listar todos'), False, URL('evento', 'index'), [])
+        ]),
+        (T('Palestrante'), False, '#', [
+            (T('+ inserir'), False, URL('palestrante', 'inserir'), []),
+            (T('Listar todos'), False, URL('palestrante', 'index'), [])
         ])
+
     ]
 else:
     response.menu += [
