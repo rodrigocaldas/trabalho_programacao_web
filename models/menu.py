@@ -22,6 +22,7 @@ response.google_analytics_id = None
 
 response.menu = [
     (T('Home'), False, URL('default', 'index'), []),
+
 ]
 
 if auth.is_logged_in():
@@ -29,29 +30,35 @@ if auth.is_logged_in():
         (T('Eventos'), False, '#', [
             (T('que sou dono'), False, URL('evento', 'sou_dono'), []),
             (T('que participo'), False, URL('evento', 'participo'), []),
-            (T('+ criar evento'), False, URL('evento', 'criar'), [])
+            (T('+ criar evento'), False, URL('evento', 'criar'), []),
+            (T('Listar todos'), False, URL('evento', 'index'), [])
+        ])
+    ]
+else:
+    response.menu += [
+        (T('Eventos'), False, '#', [
+            (T('Listar todos'), False, URL('evento', 'index'), [])
         ])
     ]
 
-
-# response.menu += (T('Eventos'), False, URL(), [])
-# (T('Palestrante'), False, URL(), [
-# (T('Listar'), False,
-# URL('default', 'listarpalestrante'), []),
-# (T('Adicionar'), False,
-# URL('default', 'adicionarpalestrante'), [])
-# ]),
-# (T('Patrocinador'), False, URL(), [
-# (T('Listar'), False,
-# URL('default', 'listarpatrocinadores'), []),
-# (T('Adicionar'), False,
-# URL('default', 'adicionarpatrocinador'), [])
-# ]),
-# (T('Organizador'), False, URL(), [
-# (T('Listar'), False,
-# URL('default', 'listarorganizadores'), []),
-# (T('Adicionar'), False,
-# URL('default', 'adicionarorganizadores'), [])
-# ])
-# ])
-# ]
+    # response.menu += (T('Eventos'), False, URL(), [])
+    # (T('Palestrante'), False, URL(), [
+    # (T('Listar'), False,
+    # URL('default', 'listarpalestrante'), []),
+    # (T('Adicionar'), False,
+    # URL('default', 'adicionarpalestrante'), [])
+    # ]),
+    # (T('Patrocinador'), False, URL(), [
+    # (T('Listar'), False,
+    # URL('default', 'listarpatrocinadores'), []),
+    # (T('Adicionar'), False,
+    # URL('default', 'adicionarpatrocinador'), [])
+    # ]),
+    # (T('Organizador'), False, URL(), [
+    # (T('Listar'), False,
+    # URL('default', 'listarorganizadores'), []),
+    # (T('Adicionar'), False,
+    # URL('default', 'adicionarorganizadores'), [])
+    # ])
+    # ])
+    # ]

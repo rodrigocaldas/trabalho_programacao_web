@@ -1,0 +1,9 @@
+{{extend 'layout.html'}}
+<h1>Lista de eventos</h1>
+<ul>
+    {{for evento in eventos:}}
+    <li><a href="{{=URL('default', 'evento/' + str(evento.id))}}" target="_blank">{{=evento.nome}}</a> - {{=evento.descricao}}</li>
+    <hr>
+{{pass}}
+
+</ul>

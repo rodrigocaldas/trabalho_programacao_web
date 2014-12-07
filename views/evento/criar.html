@@ -1,0 +1,56 @@
+{{extend 'layout.html'}}
+{{=form.custom.begin}}
+<h1>Evento</h1>
+<h6>* campos obrigatórios</h6>
+<div>
+    {{form.custom.widget.nome['_placeholder'] = T('Nome do evento*')}}
+    {{form.custom.widget.nome['_required'] = T('required')}}
+    {{=form.custom.widget.nome}}
+</div>
+<div>
+    <label>Logo do evento</label>
+    {{=form.custom.widget.logotipo}}
+</div>
+
+<div>
+    {{form.custom.widget.data_inicio['_placeholder'] = T('Data inicial*')}}
+    {{form.custom.widget.data_inicio['_required'] = T('required')}}
+    {{=form.custom.widget.data_inicio}}
+</div>
+<div>
+    {{form.custom.widget.data_final['_placeholder'] = T('Data final*')}}
+    {{form.custom.widget.data_final['_required'] = T('required')}}
+    {{=form.custom.widget.data_final}}
+</div>
+<div>
+    {{form.custom.widget.localizacao['_placeholder'] = T('Localização (Rua, bairro, cidade, estado)*')}}
+    {{form.custom.widget.localizacao['_required'] = T('required')}}
+    {{=form.custom.widget.localizacao}}
+</div>
+<div>
+    {{form.custom.widget.descricao['_placeholder'] = T('Descrição')}}
+    {{form.custom.widget.descricao['_required'] = T('required')}}
+    {{=form.custom.widget.descricao}}
+</div>
+<div>
+    {{form.custom.widget.url_youtube['_placeholder'] = T('Youtube (https://youtube.com/seu-canal)')}}
+    {{=form.custom.widget.url_youtube}}
+</div>
+<div>
+    {{form.custom.widget.url_facebook['_placeholder'] = T('Facebook (https://facebook.com/seu-nome)')}}
+    {{=form.custom.widget.url_facebook}}
+</div>
+<div>
+    {{form.custom.widget.url_twitter['_placeholder'] = T('Twitter (https://twitter.com/seu-nome)')}}
+    {{=form.custom.widget.url_twitter}}
+</div>
+<div>
+    {{form.custom.widget.url_gplus['_placeholder'] = T('Google Plus (https://plus.google.com/u/0/+Seu-nome)')}}
+    {{=form.custom.widget.url_gplus}}
+</div>
+
+{{=form.custom.submit}}
+
+{{=form.custom.end}}
+
+

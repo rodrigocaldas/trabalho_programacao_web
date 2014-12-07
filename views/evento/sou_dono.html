@@ -1,18 +1,16 @@
 {{extend 'layout.html'}}
 {{if eventos:}}
     <table class="table table-striped">
+    <tr>
+        <th>Nome</th>
+        <th>Editar</th>
+    </tr>
     {{for evento in eventos:}}
-        <tr>
-            <th>Nome</th>
-            <th>Editar</th>
-            <th>Deletar</th>
-        </tr>
         <tr>
             <td>{{=evento.nome}}</td>
             <td>
-                <a href="{{=URL('evento', 'editar/'+ str(evento.id))}}" class="btn btn-inverse"><i class="icon-pencil icon-white"></i> Editar evento</a>
+                <a href="{{=URL('evento', 'editar_ou_apagar/'+ str(evento.id))}}" class="btn btn-inverse"><i class="icon-pencil icon-white"></i><i class="icon-trash icon-white"></i> Editar ou  Apagar evento</a>
             </td>
-            <td><a href="{{=URL('evento', 'deletar/'+ str(evento.id))}}" class="btn btn-inverse"><i class="icon-trash icon-white"></i> Apagar evento</a></td>
         </tr>
         </div>
 

@@ -1,11 +1,11 @@
 {{extend 'layout.html'}}
 {{if eventos:}}
     <table class="table table-striped">
+    <tr>
+        <th>Nome</th>
+        <th>Editar</th>
+    </tr>
     {{for evento in eventos:}}
-        <tr>
-            <th>Nome</th>
-            <th>Editar</th>
-        </tr>
         <tr>
             <td>{{=evento.nome}}</td>
             <td>

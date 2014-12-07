@@ -12,7 +12,7 @@ def eventos():
         eventos = db((db.evento.data_inicio <= data) and
                      (db.evento.data_final >= data)).select()
     else:
-        eventos = db(db.evento).select(orderby=db.evento.data_inicio)
+        eventos = db(db.evento.data_final > request.now).select(orderby=db.evento.data_inicio)
     response.headers['Content-Type'] = 'text/json'
     return eventos.as_json()
 

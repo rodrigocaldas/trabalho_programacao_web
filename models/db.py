@@ -170,6 +170,7 @@ db.define_table(
 )
 
 db.atividade.palestrante.requires = IS_IN_DB(db, 'palestrante.id', '%(nome)s')
+db.atividade.palestrante.widget = SQLFORM.widgets.autocomplete(request, db.palestrante.nome, limitby=(0,10), min_length=2, help_string='Palestrante')
 db.atividade.evento_relacionado.requires = IS_IN_DB(
     db,
     'evento.id',
