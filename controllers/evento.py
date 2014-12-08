@@ -87,7 +87,7 @@ def cadastrar_organizador():
                 query &= db.vinculo_organizador_evento.organizador == novo_organizador.id
                 if db(query).count() == 1:
                     response.flash = "Esta pessoa já é organizadora deste"\
-                                     "evento"
+                                     " evento"
                 else:
                     db.vinculo_organizador_evento.validate_and_insert(
                         organizador=novo_organizador.id,
@@ -118,6 +118,37 @@ def cadastrar_patrocinador():
             response.flash = "Novo patrocinador adicionado"
         elif form.errors:
             response.flash = "formulário possui erros"
+    else:
+        redirect(URL('default', 'index'))
+    return dict(form=form)
+
+
+@auth.requires_login()
+def cadastrar_atividade():
+    evento = request.args(0, cast=int)
+    # verifica se sou dono do evento
+    query = db.vinculo_organizador_evento.evento == evento
+    query &= db.vinculo_organizador_evento.organizador == auth.user_id
+    if db(query).count() == 1:
+        form = SQLFORM.factory(
+            db.atividade,
+            db.palestrante,
+            submit_button="Enviar",
+            table_name='palestrante'
+        )
+        if form.process().accepted:
+            id = db.palestrante.insert(
+                **db.palestrante._filter_fields(form.vars)
+            )
+            form.vars.palestrante = id
+            form.vars.evento_relacionado = evento
+            id = db.atividade.insert(
+                **db.atividade._filter_fields(form.vars)
+            )
+            response.flash = "Atividade inserida com sucesso"
+        elif form.errors:
+            response.flash = "Confira se os campos do formulário estão"\
+                " corretos"
     else:
         redirect(URL('default', 'index'))
     return dict(form=form)

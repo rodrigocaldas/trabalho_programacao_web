@@ -105,11 +105,17 @@ db.define_table(
     Field('logotipo', 'upload', requires=IS_EMPTY_OR(IS_IMAGE())),
 )
 
-
+import os
 db.define_table(
     'palestrante',
     Field('nome', length=120, notnull=True),
-    Field('foto', 'upload', requires=IS_EMPTY_OR(IS_IMAGE())),
+    Field(
+        'foto',
+        'upload',
+        requires=IS_EMPTY_OR(IS_IMAGE()),
+        uploadfolder=os.path.join(request.folder, 'uploads'),
+        autodelete=True
+    ),
     Field(
         'url_facebook',
         requires=IS_EMPTY_OR(IS_URL()),
@@ -158,8 +164,8 @@ db.define_table(
         label="Data/Horário Final",
         notnull=True
     ),
-    Field('palestrante'),
-    Field('evento_relacionado'),
+    Field('palestrante', readable=False, writable=False),
+    Field('evento_relacionado', readable=False, writable=False),
     Field('descricao', 'text', label="Descrição", default=""),
     Field(
         'vagas',
@@ -170,7 +176,6 @@ db.define_table(
 )
 
 db.atividade.palestrante.requires = IS_IN_DB(db, 'palestrante.id', '%(nome)s')
-db.atividade.palestrante.widget = SQLFORM.widgets.autocomplete(request, db.palestrante.nome, limitby=(0,10), min_length=2, help_string='Palestrante')
 db.atividade.evento_relacionado.requires = IS_IN_DB(
     db,
     'evento.id',

@@ -1,0 +1,76 @@
+{{extend 'layout.html'}}
+{{=form.custom.begin}}
+<h1>Dados da atividade</h1>
+<h6>* campos obrigatórios</h6>
+<hr>
+<h2>Sobre a atividade</h2>
+<div>
+    {{form.custom.widget.titulo['_placeholder'] = T('Titulo*')}}
+    {{form.custom.widget.titulo['_required'] = T('required')}}
+    {{=form.custom.widget.titulo}}
+</div>
+<div>
+    {{=form.custom.widget.tipo_atividade}}
+</div>
+<div>
+    {{form.custom.widget.data_hora_inicio['_placeholder'] = T('Data/Hora início')}}
+    {{form.custom.widget.data_hora_inicio['_required'] = T('required')}}
+    {{=form.custom.widget.data_hora_inicio}}
+</div>
+<div>
+    {{form.custom.widget.data_hora_final['_placeholder'] = T('Data/Hora final')}}
+    {{form.custom.widget.data_hora_final['_required'] = T('required')}}
+    {{=form.custom.widget.data_hora_final}}
+</div>
+<div>
+    {{form.custom.widget.descricao['_placeholder'] = T('Descrição da atividade')}}
+    {{form.custom.widget.descricao['_required'] = T('required')}}
+    {{=form.custom.widget.descricao}}
+</div>
+<div>
+    {{form.custom.widget.vagas['_placeholder'] = T('N de vagas')}}
+    {{form.custom.widget.vagas['_required'] = T('required')}}
+    {{=form.custom.widget.vagas}}
+</div>
+<hr>
+<h2>Sobre o palestrante</h2>
+<div>
+    {{form.custom.widget.nome['_placeholder'] = T('Nome do palestrante*')}}
+    {{form.custom.widget.nome['_required'] = T('required')}}
+    {{=form.custom.widget.nome}}
+</div>
+<div>
+    <label>Foto do palestrante</label>
+    {{=form.custom.widget.foto}}
+</div>
+<div>
+    {{form.custom.widget.bio['_placeholder'] = T('Descreva o palestrante*')}}
+    {{form.custom.widget.bio['_required'] = T('required')}}
+    {{=form.custom.widget.bio}}
+</div>
+<div>
+    {{form.custom.widget.url_facebook['_placeholder'] = T('Facebook (https://facebook.com/seu-nome)')}}
+    {{=form.custom.widget.url_facebook}}
+</div>
+<div>
+    {{form.custom.widget.url_twitter['_placeholder'] = T('Twitter (https://twitter.com/seu-nome)')}}
+    {{=form.custom.widget.url_twitter}}
+</div>
+<div>
+    {{form.custom.widget.url_gplus['_placeholder'] = T('Google Plus (https://plus.google.com/u/0/+Seu-nome)')}}
+    {{=form.custom.widget.url_gplus}}
+</div>
+<div>
+    {{form.custom.widget.url_github['_placeholder'] = T('Github (https://github.com/Seu-Git)')}}
+    {{=form.custom.widget.url_github}}
+</div>
+<div>
+    {{form.custom.widget.url_linkedin['_placeholder'] = T('Seu perfil no LinkedIn')}}
+    {{=form.custom.widget.url_linkedin}}
+</div>
+
+{{=form.custom.submit}}
+
+{{=form.custom.end}}
+
+
