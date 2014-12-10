@@ -158,7 +158,7 @@ def listar_patrocinadores():
     evento = request.args(0, cast=int)
     query = db.vinculo_patrocinador_evento.evento == evento
     query &= db.patrocinador.id == db.vinculo_patrocinador_evento.patrocinador
-    patrocinadores = db(query).select()
+    patrocinadores = db(query).select(db.patrocinador.id, db.patrocinador.foto, db.patrocinador.nome,db.patrocinador.id, db.patrocinador.plano)
     return dict(patrocinadores=patrocinadores)
 
 @auth.requires_login()
@@ -166,7 +166,7 @@ def listar_organizadores():
     evento = request.args(0, cast=int)
     query = db.vinculo_organizador_evento.evento == evento
     query &= db.auth_user.id == db.vinculo_organizador_evento.organizador
-    patrocinadores = db(query).select()
+    organizadores = db(query).select(db.auth_user.id,db.auth_user.first_name,db.auth_user.email)
     return dict(organizadores=organizadores)
 
 @auth.requires_login()
@@ -174,7 +174,7 @@ def listar_atividades():
     _id = request.args(0, cast=int)
     query = db.atividade.evento_relacionado == _id
     query &= db.palestrante.id == db.atividade.palestrante
-    organizadores = db(query).select()
+    atividades = db(query).select()
     return dict(atividades=atividades)
 
 @auth.requires_login()  

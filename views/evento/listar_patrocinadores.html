@@ -1,0 +1,11 @@
+{{extend 'layout.html'}}
+<h1>Lista de patrocinadores</h1>
+<ul>
+    {{for patrocinador in patrocinadores:}}
+    <li> 
+    	<img src="{{=URL('default', '/download/' + str(patrocinador.foto))}}" style="width:50px;height:50px"> 
+    	{{=patrocinador.nome}} - {{=patrocinador.plano}}</li>
+    <hr>
+{{pass}}
+
+</ul>

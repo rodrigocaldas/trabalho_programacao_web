@@ -35,12 +35,7 @@ if auth.is_logged_in():
             (T('que participo'), False, URL('evento', 'participo'), []),
             (T('+ criar evento'), False, URL('evento', 'criar'), []),
             (T('Listar todos'), False, URL('evento', 'index'), [])
-        ]),
-        (T('Palestrante'), False, '#', [
-            (T('+ inserir'), False, URL('palestrante', 'inserir'), []),
-            (T('Listar todos'), False, URL('palestrante', 'index'), [])
         ])
-
     ]
 else:
     response.menu += [

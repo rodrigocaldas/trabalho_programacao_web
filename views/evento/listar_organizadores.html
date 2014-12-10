@@ -1,0 +1,10 @@
+{{extend 'layout.html'}}
+<h1>Lista de organizadores</h1>
+<ul>
+    {{for organizador in organizadores:}}
+    <li> 
+    	{{=organizador.first_name}}</a> - {{=organizador.email}}</li>
+    <hr>
+{{pass}}
+
+</ul>
