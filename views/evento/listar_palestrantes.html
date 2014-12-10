@@ -1,0 +1,11 @@
+{{extend 'layout.html'}}
+<h1>Lista de palestrantes</h1>
+<ul>
+    {{for palestrante in palestrantes:}}
+    <li> 
+    	<img src="{{=URL('default', '/download/' + str(palestrante.foto))}}" style="width:50px;height:50px"> 
+    	<a href="{{=URL('default', 'palestrante/' + str(palestrante.id))}}" target="_blank">{{=palestrante.nome}}</a> - {{=palestrante.bio}}</li>
+    <hr>
+{{pass}}
+
+</ul>

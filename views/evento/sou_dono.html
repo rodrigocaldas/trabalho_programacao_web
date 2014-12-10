@@ -4,9 +4,10 @@
     <tr>
         <th>Nome</th>
         <th>Editar</th>
-        <th>Cadastrar patrocinador</th>
-        <th>Cadastrar organizador</th>
-        <th>Cadastrar atividade</th>
+        <th>Patrocinador</th>
+        <th>Organizador</th>
+        <th>Atividade</th>
+        <th>Palestrante</th>
     </tr>
     {{for evento in eventos:}}
         <tr>
@@ -23,7 +24,26 @@
             <td>
                <a class="btn btn-inverse" href="{{=URL('evento', 'cadastrar_atividade/'+ str(evento.id))}}"><i class="icon-bullhorn icon-white"></i> Cadastrar atividade</a>
             </td>
-
+            <td>
+               <a class="btn btn-inverse" href="{{=URL('evento', 'cadastrar_palestrante/'+ str(evento.id))}}"><i class="icon-bullhorn icon-white"></i> Cadastrar palestrante</a>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+            </td>
+            <td>
+                <a class="btn btn-inverse" href="{{=URL('evento', 'listar_patrocinadores/'+ str(evento.id))}}"><i class="icon-gift icon-white"></i> Listar patrocinadores</a>
+            </td>
+            <td>
+               <a class="btn btn-inverse" href="{{=URL('evento', 'listar_organizadores/'+ str(evento.id))}}"><i class=" icon-wrench icon-white"></i> Listar organizadores</a>
+            </td>
+            <td>
+               <a class="btn btn-inverse" href="{{=URL('evento', 'listar_atividades/'+ str(evento.id))}}"><i class="icon-bullhorn icon-white"></i> Listar atividadees</a>
+            </td>
+            <td>
+               <a class="btn btn-inverse" href="{{=URL('evento', 'listar_palestrantes')}}"><i class="icon-bullhorn icon-white"></i> Listar palestrantes</a>
+            </td>
         </tr>
         </div>
 

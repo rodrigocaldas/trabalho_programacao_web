@@ -152,3 +152,48 @@ def cadastrar_atividade():
     else:
         redirect(URL('default', 'index'))
     return dict(form=form)
+
+@auth.requires_login()
+def listar_patrocinadores():
+    evento = request.args(0, cast=int)
+    query = db.vinculo_patrocinador_evento.evento == evento
+    query &= db.patrocinador.id == db.vinculo_patrocinador_evento.patrocinador
+    patrocinadores = db(query).select()
+    return dict(patrocinadores=patrocinadores)
+
+@auth.requires_login()
+def listar_organizadores():
+    evento = request.args(0, cast=int)
+    query = db.vinculo_organizador_evento.evento == evento
+    query &= db.auth_user.id == db.vinculo_organizador_evento.organizador
+    patrocinadores = db(query).select()
+    return dict(organizadores=organizadores)
+
+@auth.requires_login()
+def listar_atividades():
+    _id = request.args(0, cast=int)
+    query = db.atividade.evento_relacionado == _id
+    query &= db.palestrante.id == db.atividade.palestrante
+    organizadores = db(query).select()
+    return dict(atividades=atividades)
+
+@auth.requires_login()  
+def listar_palestrantes():
+    palestrantes = db(db.palestrante).select()
+    return dict(palestrantes=palestrantes)
+
+@auth.requires_login()
+def cadastrar_palestrante():
+    evento = request.args(0, cast=int)
+    # verifica se sou dono do evento
+    query = db.vinculo_organizador_evento.evento == evento
+    query &= db.vinculo_organizador_evento.organizador == auth.user_id
+    if db(query).count() == 1:
+        form = SQLFORM(db.palestrante, submit_button="Enviar")
+        if form.process().accepted:
+            response.flash = "Novo palestrante adicionado"
+        elif form.errors:
+            response.flash = "formulário possui erros"
+    else:
+        redirect(URL('default', 'index'))
+    return dict(form=form)
