@@ -1,3 +1,4 @@
+import requests
 
 def index():
     eventos = db(db.evento.data_final > request.now).select()
@@ -197,3 +198,53 @@ def cadastrar_palestrante():
     else:
         redirect(URL('default', 'index'))
     return dict(form=form)
+
+def listar_atividade():
+
+    _id = request.args(0, cast=int)
+
+    # captura o evento
+    sobre_evento = requests.get(
+        URL(
+            c='api',
+            f='evento',
+            args=[_id],
+            host='localhost:8000'
+        )
+    ).json()
+
+    patrocinadores = requests.get(
+        URL(
+            c='api',
+            f='patrocinadores',
+            args=[_id],
+            host='localhost:8000'
+        )
+    ).json()
+
+    # # captura organizadores de um evento
+    organizadores = requests.get(
+        URL(
+            c='api',
+            f='organizadores',
+            args=[_id],
+            host='localhost:8000'
+        )
+    ).json()
+
+    # captura atividades de um evento
+    atividades = requests.get(
+        URL(
+            c='api',
+            f='atividades',
+            args=[_id],
+            host='localhost:8000'
+        )
+    ).json()
+
+    return dict(
+        patrocinadores=patrocinadores,
+        sobre_evento=sobre_evento,
+        organizadores=organizadores,
+        atividades=atividades
+    )
