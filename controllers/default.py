@@ -1,16 +1,18 @@
 # -*- coding: utf-8 -*-
 import requests
+import urllib2
+import gluon.contrib.simplejson as sj
 
 
 def index():
-    chamada_api = requests.get(
+    chamada_api = urllib2.urlopen(
         URL(
             c='api',
             f='eventos',
               host='localhost:8000'
         )
-    )
-    eventos = chamada_api.json()
+    ).read()
+    eventos = sj.loads(chamada_api)
     return dict(eventos=eventos[:3])
 
 
